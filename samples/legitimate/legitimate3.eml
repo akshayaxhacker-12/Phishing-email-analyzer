@@ -1,0 +1,16 @@
+From: "Example Company" <alerts@example.com>
+To: user@example.com
+Subject: Password Change Confirmation
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hello,
+
+Your password was successfully changed.
+
+If you made this change, no further action is required.
+
+If you did not make this change, please contact the support team through the official company website.
+
+Thank you,
+Example Company Support

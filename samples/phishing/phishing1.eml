@@ -1,0 +1,17 @@
+From: "PayPal Support" <notice@attacker.example>
+To: user@example.com
+Reply-To: support@different.example
+Return-Path: <bounce@attacker.example>
+Subject: Urgent: Verify Your Account
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Authentication-Results: example.com; spf=fail; dkim=fail; dmarc=fail
+
+Dear Customer,
+
+Your account requires verification.
+
+Please visit https://example.com/verify to review your account.
+
+Thank you,
+PayPal Support

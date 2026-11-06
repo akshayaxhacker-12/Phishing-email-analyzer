@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result - PhishGuard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1120;
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #111827;
+            border-bottom: 1px solid #243044;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        .title {
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .title p {
+            color: #94a3b8;
+        }
+
+        .score-card {
+            background: #111827;
+            border: 1px solid #263449;
+            border-radius: 18px;
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .score h2 {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .score-number {
+            font-size: 58px;
+            font-weight: bold;
+        }
+
+        .verdict {
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .low {
+            background: #14532d;
+            color: #86efac;
+        }
+
+        .medium {
+            background: #713f12;
+            color: #fde047;
+        }
+
+        .high {
+            background: #7c2d12;
+            color: #fdba74;
+        }
+
+        .critical {
+            background: #7f1d1d;
+            color: #fca5a5;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: #111827;
+            border: 1px solid #263449;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 19px;
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+
+        .info {
+            margin-bottom: 14px;
+        }
+
+        .label {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            color: #e2e8f0;
+            word-break: break-word;
+        }
+
+        .indicator {
+            background: #1e293b;
+            border-left: 4px solid #ef4444;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+
+        .success {
+            border-left-color: #22c55e;
+        }
+
+        .url-item,
+        .attachment-item {
+            background: #0f172a;
+            border: 1px solid #263449;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .url {
+            color: #38bdf8;
+            word-break: break-all;
+            margin-bottom: 8px;
+        }
+
+        .stats {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .button {
+            display: inline-block;
+            background: #0284c7;
+            color: white;
+            text-decoration: none;
+            padding: 13px 25px;
+            border-radius: 9px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #0369a1;
+        }
+
+        .back {
+            background: #1e293b;
+            margin-left: 10px;
+        }
+
+        .back:hover {
+            background: #334155;
+        }
+
+        .empty {
+            color: #94a3b8;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            padding: 30px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .score-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .navbar {
+                padding: 18px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">🛡️ PhishGuard</div>
+    <div>Analysis Result</div>
+</nav>
+
+<main class="container">
+
+    <section class="title">
+        <h1>📊 Email Analysis Result</h1>
+        <p>Analysis completed for: <strong>{{ filename }}</strong></p>
+    </section>
+
+    <section class="score-card">
+
+        <div class="score">
+            <h2>Risk Score</h2>
+            <div class="score-number">
+                {{ result.score }}/100
+            </div>
+        </div>
+
+        <div class="verdict
+            {% if result.verdict == 'Low' %}
+                low
+            {% elif result.verdict == 'Medium' %}
+                medium
+            {% elif result.verdict == 'High' %}
+                high
+            {% else %}
+                critical
+            {% endif %}
+        ">
+            {{ result.verdict }}
+        </div>
+
+    </section>
+
+    <div class="grid">
+
+        <section class="card">
+
+            <h2>📧 Email Details</h2>
+
+            <div class="info">
+                <div class="label">Subject</div>
+                <div class="value">
+                    {{ result.subject or "Not available" }}
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="label">From</div>
+                <div class="value">
+                    {{ result.sender or "Not available" }}
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="label">Reply-To</div>
+                <div class="value">
+                    {{ result.reply_to or "Not available" }}
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="label">Return-Path</div>
+                <div class="value">
+                    {{ result.return_path or "Not available" }}
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2>🔐 Authentication</h2>
+
+            {% if result.auth_failures %}
+
+                {% for failure in result.auth_failures %}
+                    <div class="indicator">
+                        {{ failure }} failure detected
+                    </div>
+                {% endfor %}
+
+            {% else %}
+
+                <div class="indicator success">
+                    No authentication failures detected
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+
+    <section class="card">
+
+        <h2>⚠️ Risk Indicators</h2>
+
+        {% if result.indicators %}
+
+            {% for indicator in result.indicators %}
+                <div class="indicator">
+                    {{ indicator }}
+                </div>
+            {% endfor %}
+
+        {% else %}
+
+            <div class="indicator success">
+                No risk indicators detected
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>🔗 URL Analysis</h2>
+
+        {% if result.urls %}
+
+            {% for item in result.urls %}
+
+                <div class="url-item">
+
+                    <div class="url">
+                        {{ item.url }}
+                    </div>
+
+                    {% if item.stats %}
+
+                        <div class="stats">
+                            Malicious:
+                            {{ item.stats.get('malicious', 0) }}
+                            <br>
+
+                            Suspicious:
+                            {{ item.stats.get('suspicious', 0) }}
+                            <br>
+
+                            Harmless:
+                            {{ item.stats.get('harmless', 0) }}
+                            <br>
+
+                            Undetected:
+                            {{ item.stats.get('undetected', 0) }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="stats">
+                            VirusTotal result unavailable.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                No URLs found.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>📎 Attachment Analysis</h2>
+
+        {% if result.attachments %}
+
+            {% for item in result.attachments %}
+
+                <div class="attachment-item">
+
+                    <strong>
+                        {{ item.filename }}
+                    </strong>
+
+                    <div class="stats">
+                        SHA-256:
+                        {{ item.sha256 }}
+                    </div>
+
+                    {% if item.stats %}
+
+                        <div class="stats">
+                            Malicious:
+                            {{ item.stats.get('malicious', 0) }}
+                            <br>
+
+                            Suspicious:
+                            {{ item.stats.get('suspicious', 0) }}
+                            <br>
+
+                            Harmless:
+                            {{ item.stats.get('harmless', 0) }}
+                            <br>
+
+                            Undetected:
+                            {{ item.stats.get('undetected', 0) }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="stats">
+                            File hash not found in VirusTotal.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                No attachments found.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <a
+        href="/"
+        class="button back"
+    >
+        ← Analyze Another Email
+    </a>
+
+</main>
+
+<footer>
+    PhishGuard • Phishing Email Analyzer • Cybersecurity Project
+</footer>
+
+</body>
+</html>

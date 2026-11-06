@@ -1,0 +1,19 @@
+From: "Microsoft Security" <alert@attacker.example>
+To: user@example.com
+Reply-To: verify@different.example
+Return-Path: <bounce@attacker.example>
+Subject: Urgent Security Alert
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Authentication-Results: example.com; spf=fail; dkim=fail; dmarc=fail
+
+Dear User,
+
+We detected unusual activity on your account.
+
+Please review your account security settings immediately.
+
+Visit https://example.com/security to verify your account.
+
+Thank you,
+Microsoft Security Team

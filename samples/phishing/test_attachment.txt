@@ -1,0 +1,1 @@
+This is a safe synthetic attachment used for testing the Phishing Email Analyzer.

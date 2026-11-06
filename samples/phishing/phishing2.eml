@@ -1,0 +1,21 @@
+From: "Security Team" <security@attacker.example>
+To: user@example.com
+Reply-To: support@different.example
+Return-Path: <bounce@attacker.example>
+Subject: Important Security Document
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="BOUNDARY123"
+
+--BOUNDARY123
+Content-Type: text/plain; charset="utf-8"
+
+Please review the attached security document.
+
+--BOUNDARY123
+Content-Type: text/plain; name="test_attachment.txt"
+Content-Disposition: attachment; filename="test_attachment.txt"
+Content-Transfer-Encoding: base64
+
+VGhpcyBpcyBhIHNhZmUgc3ludGhldGljIGF0dGFjaG1lbnQgdXNlZCBmb3IgdGVzdGluZyB0aGUgUGhpc2hpbmcgRW1haWwgQW5hbHl6ZXIu
+
+--BOUNDARY123--

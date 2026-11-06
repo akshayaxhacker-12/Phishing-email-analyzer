@@ -1,0 +1,14 @@
+From: "Example Company" <notifications@example.com>
+To: user@example.com
+Subject: Monthly Account Statement
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hello,
+
+Your monthly account statement is now available.
+
+Please log in to your account through the usual company website to review your statement.
+
+Thank you,
+Example Company

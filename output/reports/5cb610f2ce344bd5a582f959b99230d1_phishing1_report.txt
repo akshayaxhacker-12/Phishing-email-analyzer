@@ -1,0 +1,47 @@
+===== PHISHING EMAIL ANALYSIS REPORT =====
+
+EMAIL DETAILS
+------------------------------
+File: web_uploads\5cb610f2ce344bd5a582f959b99230d1_phishing1.eml
+Subject: Urgent: Verify Your Account
+From: PayPal Support <notice@attacker.example>
+Reply-To: support@different.example
+Return-Path: <bounce@attacker.example>
+
+RECEIVED HEADERS
+------------------------------
+No Received headers found.
+
+AUTHENTICATION RESULTS
+------------------------------
+example.com; spf=fail; dkim=fail; dmarc=fail
+
+AUTHENTICATION FAILURES
+------------------------------
+- SPF failure
+- DKIM failure
+- DMARC failure
+
+URL ANALYSIS
+------------------------------
+URL: https://example.com/verify
+Malicious: 0
+Suspicious: 0
+Harmless: 63
+Undetected: 28
+
+ATTACHMENT ANALYSIS
+------------------------------
+No attachments found.
+RISK ASSESSMENT
+------------------------------
+Risk Score: 95/100
+Verdict: Critical
+
+INDICATORS
+------------------------------
+- Display-name spoofing
+- Reply-To mismatch
+- SPF failure
+- DKIM failure
+- DMARC failure

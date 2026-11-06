@@ -1,0 +1,16 @@
+Filename,Sender,Risk Score,Verdict
+phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+phishing2.eml,Security Team <security@attacker.example>,35,Medium
+phishing3.eml,Microsoft Security <alert@attacker.example>,95,Critical
+legitimate1.eml,Example Company <notifications@example.com>,0,Low
+legitimate2.eml,Example Company <updates@example.com>,0,Low
+legitimate3.eml,Example Company <alerts@example.com>,0,Low
+phishing3.eml,Microsoft Security <alert@attacker.example>,95,Critical
+legitimate1.eml,Example Company <notifications@example.com>,0,Low
+87a19a8d50d04fcd87cc70cef403b7cb_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+5cb610f2ce344bd5a582f959b99230d1_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+76139ac40b0346c28e0c94a838b4da32_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+e365ca7585184b00ab5cb8f42da0bcdb_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+4ab3b96854a647baa7ef03405fc007ad_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+bedd425063c64ac995910c7560d37d2d_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical
+03d023de8963489699036e55922f7cc3_phishing1.eml,PayPal Support <notice@attacker.example>,95,Critical

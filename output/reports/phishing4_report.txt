@@ -1,0 +1,41 @@
+===== PHISHING EMAIL ANALYSIS REPORT =====
+
+EMAIL DETAILS
+------------------------------
+File: samples/phishing/phishing4.eml
+Subject: Account Verification Required
+From: Account Support <support@attacker.example>
+Reply-To: None
+Return-Path: None
+
+RECEIVED HEADERS
+------------------------------
+No Received headers found.
+
+AUTHENTICATION RESULTS
+------------------------------
+No Authentication-Results header found.
+
+AUTHENTICATION FAILURES
+------------------------------
+None detected.
+
+URL ANALYSIS
+------------------------------
+URL: https://example.com/verify-account
+Malicious: 0
+Suspicious: 0
+Harmless: 63
+Undetected: 28
+
+ATTACHMENT ANALYSIS
+------------------------------
+No attachments found.
+RISK ASSESSMENT
+------------------------------
+Risk Score: 0/100
+Verdict: Low
+
+INDICATORS
+------------------------------
+No risk indicators detected.

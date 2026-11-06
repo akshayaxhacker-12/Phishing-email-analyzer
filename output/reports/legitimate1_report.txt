@@ -1,0 +1,36 @@
+===== PHISHING EMAIL ANALYSIS REPORT =====
+
+EMAIL DETAILS
+------------------------------
+File: samples/legitimate/legitimate1.eml
+Subject: Monthly Account Statement
+From: Example Company <notifications@example.com>
+Reply-To: None
+Return-Path: None
+
+RECEIVED HEADERS
+------------------------------
+No Received headers found.
+
+AUTHENTICATION RESULTS
+------------------------------
+No Authentication-Results header found.
+
+AUTHENTICATION FAILURES
+------------------------------
+None detected.
+
+URL ANALYSIS
+------------------------------
+No URLs found.
+ATTACHMENT ANALYSIS
+------------------------------
+No attachments found.
+RISK ASSESSMENT
+------------------------------
+Risk Score: 0/100
+Verdict: Low
+
+INDICATORS
+------------------------------
+No risk indicators detected.

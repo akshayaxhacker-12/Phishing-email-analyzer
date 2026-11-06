@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phishing-Email Analyzer | Blue Cloud Softech Solutions Limited</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 85% 10%, rgba(37, 99, 235, 0.12), transparent 28%),
+                radial-gradient(circle at 10% 90%, rgba(14, 165, 233, 0.08), transparent 25%),
+                #060b14;
+            color: #e6edf7;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image:
+                linear-gradient(#ffffff 1px, transparent 1px),
+                linear-gradient(90deg, #ffffff 1px, transparent 1px);
+            background-size: 45px 45px;
+        }
+
+        .page {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+        /* CORPORATE HEADER */
+
+        .topbar {
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #1b293c;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .brand-logo {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .brand-text {
+            line-height: 1.2;
+        }
+
+        .company-name {
+            color: #91a3bd;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.1px;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            margin-top: 4px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #f4f7fb;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #8ea0b8;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.65);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 65px 0 42px;
+            max-width: 850px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #60a5fa;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .eyebrow-line {
+            width: 25px;
+            height: 1px;
+            background: #3b82f6;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.05;
+            letter-spacing: -1.8px;
+            color: #f8fafc;
+            font-weight: 750;
+        }
+
+        .hero h1 span {
+            color: #60a5fa;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            max-width: 720px;
+            color: #8292aa;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* MAIN ANALYSIS PANEL */
+
+        .analysis-panel {
+            position: relative;
+            overflow: hidden;
+            background: rgba(12, 20, 34, 0.94);
+            border: 1px solid #24334a;
+            border-radius: 14px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.35),
+                inset 0 1px rgba(255, 255, 255, 0.025);
+        }
+
+        .panel-header {
+            height: 54px;
+            padding: 0 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #202e43;
+            background: rgba(255, 255, 255, 0.012);
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #c5d2e4;
+            letter-spacing: 0.5px;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-dots span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #33445c;
+        }
+
+        .panel-id {
+            color: #536680;
+            font-family: Consolas, monospace;
+            font-size: 10px;
+        }
+
+        .panel-content {
+            padding: 35px;
+        }
+
+        /* UPLOAD AREA */
+
+        .upload-zone {
+            border: 1px dashed #38516f;
+            border-radius: 11px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37, 99, 235, 0.045),
+                    rgba(14, 165, 233, 0.018)
+                );
+            padding: 48px 25px;
+            text-align: center;
+            transition: 0.25s ease;
+        }
+
+        .upload-zone:hover {
+            border-color: #4f8de8;
+            background: rgba(37, 99, 235, 0.07);
+        }
+
+        .shield {
+            width: 62px;
+            height: 62px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #294a73;
+            border-radius: 14px;
+            background: #0c1b2f;
+            color: #60a5fa;
+            font-size: 27px;
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.12);
+        }
+
+        .upload-zone h2 {
+            margin-top: 22px;
+            font-size: 21px;
+            color: #edf3fb;
+            font-weight: 650;
+        }
+
+        .upload-zone p {
+            max-width: 560px;
+            margin: 10px auto 25px;
+            color: #71839d;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .file-input-wrapper {
+            max-width: 560px;
+            margin: auto;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #2b3d57;
+            border-radius: 7px;
+            background: #080f1c;
+            color: #91a2ba;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .file-input::file-selector-button {
+            margin-right: 12px;
+            padding: 9px 15px;
+            border: 1px solid #31527d;
+            border-radius: 5px;
+            background: #12233c;
+            color: #c6d8ef;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .analyze-button {
+            margin-top: 17px;
+            padding: 12px 25px;
+            border: 0;
+            border-radius: 6px;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            box-shadow: 0 7px 22px rgba(37, 99, 235, 0.22);
+            transition: 0.2s ease;
+        }
+
+        .analyze-button:hover {
+            background: #3474ef;
+            transform: translateY(-1px);
+        }
+
+        /* ANALYSIS MODULES */
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .module {
+            padding: 20px;
+            border: 1px solid #202f45;
+            border-radius: 9px;
+            background: #0b1423;
+        }
+
+        .module-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .module-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            background: #122238;
+            color: #66a4f7;
+            font-size: 14px;
+        }
+
+        .module-state {
+            color: #4ade80;
+            font-family: Consolas, monospace;
+            font-size: 9px;
+            letter-spacing: 0.7px;
+        }
+
+        .module h3 {
+            font-size: 13px;
+            color: #dbe5f2;
+            margin-bottom: 7px;
+        }
+
+        .module p {
+            color: #687b95;
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        /* INFORMATION BAR */
+
+        .info-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #202e43;
+            margin-top: 22px;
+        }
+
+        .info-item {
+            padding: 17px 20px;
+            border-right: 1px solid #202e43;
+        }
+
+        .info-item:last-child {
+            border-right: 0;
+        }
+
+        .info-label {
+            color: #526681;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-value {
+            margin-top: 5px;
+            color: #aebdd0;
+            font-family: Consolas, monospace;
+            font-size: 10px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 28px 0 40px;
+            display: flex;
+            justify-content: space-between;
+            color: #465a75;
+            font-size: 10px;
+        }
+
+        .footer-right {
+            font-family: Consolas, monospace;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .modules {
+                grid-template-columns: 1fr;
+            }
+
+            .info-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-item:nth-child(2) {
+                border-right: 0;
+            }
+
+            .info-item:nth-child(-n+2) {
+                border-bottom: 1px solid #202e43;
+            }
+
+            .hero {
+                padding-top: 45px;
+            }
+
+            .panel-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .topbar {
+                height: auto;
+                padding: 18px 0;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .system-status {
+                display: none;
+            }
+
+            .brand-logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .info-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item {
+                border-right: 0;
+                border-bottom: 1px solid #202e43;
+            }
+
+            .info-item:last-child {
+                border-bottom: 0;
+            }
+
+            footer {
+                display: block;
+                line-height: 2;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- COMPANY HEADER -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <img
+                src="{{ url_for('static', filename='company_logo.jpg') }}"
+                alt="Blue Cloud Softech Solutions Limited"
+                class="brand-logo"
+            >
+
+            <div class="brand-text">
+
+                <div class="company-name">
+                    Blue Cloud Softech Solutions Limited
+                </div>
+
+                <div class="product-name">
+                    Phishing-Email Analyzer
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            ANALYSIS ENGINE ONLINE
+
+        </div>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+
+            <span class="eyebrow-line"></span>
+
+            EMAIL THREAT INTELLIGENCE
+
+        </div>
+
+
+        <h1>
+            Phishing-Email
+            <span>Analyzer</span>
+        </h1>
+
+
+        <p>
+
+            A security analysis platform designed to inspect suspicious
+            email artifacts, identify authentication anomalies, evaluate
+            embedded URLs and analyze attachment reputation before
+            assigning a consolidated risk assessment.
+
+        </p>
+
+    </section>
+
+
+    <!-- ANALYSIS CONSOLE -->
+
+    <section class="analysis-panel">
+
+
+        <div class="panel-header">
+
+            <div class="panel-title">
+
+                <div class="terminal-dots">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+                EMAIL ANALYSIS CONSOLE
+
+            </div>
+
+
+            <div class="panel-id">
+
+                BCSSL / PEA / ANALYZER
+
+            </div>
+
+        </div>
+
+
+        <div class="panel-content">
+
+
+            <!-- FILE UPLOAD -->
+
+            <div class="upload-zone">
+
+
+                <div class="shield">
+                    🛡
+                </div>
+
+
+                <h2>
+                    Submit Email Artifact
+                </h2>
+
+
+                <p>
+
+                    Upload a sanctioned
+                    <strong>.eml</strong>
+                    sample.
+
+                    The analyzer will inspect message headers,
+                    authentication results, URLs and attachments
+                    without executing the attached files.
+
+                </p>
+
+
+                <form
+                    action="/analyze"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+
+                    <div class="file-input-wrapper">
+
+                        <input
+                            type="file"
+                            name="email_file"
+                            accept=".eml"
+                            class="file-input"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="analyze-button"
+                    >
+
+                        INITIATE SECURITY ANALYSIS
+
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+            <!-- SECURITY MODULES -->
+
+            <div class="modules">
+
+
+                <div class="module">
+
+                    <div class="module-top">
+
+                        <div class="module-icon">
+                            ✉
+                        </div>
+
+                        <div class="module-state">
+                            READY
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        Header Intelligence
+                    </h3>
+
+
+                    <p>
+
+                        Sender identity, Reply-To,
+                        Return-Path, Received chain
+                        and authentication headers.
+
+                    </p>
+
+                </div>
+
+
+                <div class="module">
+
+                    <div class="module-top">
+
+                        <div class="module-icon">
+                            ◈
+                        </div>
+
+                        <div class="module-state">
+                            READY
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        URL Reputation
+                    </h3>
+
+
+                    <p>
+
+                        URL extraction and available
+                        threat-intelligence reputation
+                        analysis for suspicious links.
+
+                    </p>
+
+                </div>
+
+
+                <div class="module">
+
+                    <div class="module-top">
+
+                        <div class="module-icon">
+                            ⛓
+                        </div>
+
+                        <div class="module-state">
+                            READY
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        Attachment Forensics
+                    </h3>
+
+
+                    <p>
+
+                        Attachment metadata and SHA-256
+                        hash analysis without executing
+                        submitted files.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- SYSTEM INFORMATION -->
+
+            <div class="info-strip">
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Input Format
+                    </div>
+
+                    <div class="info-value">
+                        .EML
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Authentication
+                    </div>
+
+                    <div class="info-value">
+                        SPF / DKIM / DMARC
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Hash Algorithm
+                    </div>
+
+                    <div class="info-value">
+                        SHA-256
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Risk Output
+                    </div>
+
+                    <div class="info-value">
+                        0 — 100
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+
+        <div>
+
+            Blue Cloud Softech Solutions Limited
+            &nbsp; | &nbsp;
+            Phishing-Email Analyzer
+
+        </div>
+
+
+        <div class="footer-right">
+
+            CYBERSECURITY ANALYSIS SYSTEM
+
+        </div>
+
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

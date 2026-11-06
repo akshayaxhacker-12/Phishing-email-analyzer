@@ -1,0 +1,40 @@
+===== PHISHING EMAIL ANALYSIS REPORT =====
+
+EMAIL DETAILS
+------------------------------
+File: samples/phishing/phishing2.eml
+Subject: Important Security Document
+From: Security Team <security@attacker.example>
+Reply-To: support@different.example
+Return-Path: <bounce@attacker.example>
+
+RECEIVED HEADERS
+------------------------------
+No Received headers found.
+
+AUTHENTICATION RESULTS
+------------------------------
+No Authentication-Results header found.
+
+AUTHENTICATION FAILURES
+------------------------------
+None detected.
+
+URL ANALYSIS
+------------------------------
+No URLs found.
+ATTACHMENT ANALYSIS
+------------------------------
+Filename: test_attachment.txt
+SHA-256: 80d66f69c34ebf543874342cfe751f0df9a85a02d41780099398be3d5c3bcc2b
+File hash not found in VirusTotal.
+
+RISK ASSESSMENT
+------------------------------
+Risk Score: 35/100
+Verdict: Medium
+
+INDICATORS
+------------------------------
+- Display-name spoofing
+- Reply-To mismatch

@@ -1,0 +1,16 @@
+From: "Example Company" <updates@example.com>
+To: user@example.com
+Subject: Scheduled Maintenance Notice
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hello,
+
+This is a notification about scheduled maintenance.
+
+The service may be temporarily unavailable during the planned maintenance period.
+
+No action is required from you.
+
+Thank you,
+Example Company IT Team

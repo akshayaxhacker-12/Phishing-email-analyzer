@@ -1,0 +1,87 @@
+PHISHING EMAIL ANALYZER
+ACCURACY WRITE-UP
+
+1. TEST DATASET
+
+The analyzer was tested using 6 sanitized synthetic email samples:
+
+Phishing samples:
+- phishing1.eml
+- phishing2.eml
+- phishing3.eml
+
+Legitimate samples:
+- legitimate1.eml
+- legitimate2.eml
+- legitimate3.eml
+
+
+2. OBSERVED RESULTS
+
+Phishing emails:
+- phishing1.eml: Detected as phishing
+- phishing2.eml: Detected as phishing
+- phishing3.eml: Detected as phishing
+
+Legitimate emails:
+- legitimate1.eml: Detected as legitimate
+- legitimate2.eml: Detected as legitimate
+- legitimate3.eml: Detected as legitimate
+
+
+3. FALSE POSITIVE RATE
+
+False Positive (FP) = Legitimate emails incorrectly classified as phishing.
+
+False Positives = 0
+Total legitimate emails = 3
+
+False Positive Rate = 0 / 3 × 100 = 0%
+
+
+4. FALSE NEGATIVE RATE
+
+False Negative (FN) = Phishing emails incorrectly classified as legitimate.
+
+False Negatives = 0
+Total phishing emails = 3
+
+False Negative Rate = 0 / 3 × 100 = 0%
+
+
+5. OBSERVED ACCURACY
+
+Correct classifications = 6
+Total samples = 6
+
+Observed Accuracy = 6 / 6 × 100 = 100%
+
+
+6. TUNING NOTES
+
+The analyzer uses weighted indicators such as display-name spoofing,
+Reply-To mismatch, SPF/DKIM/DMARC failures, malicious URLs, and
+malicious attachments.
+
+The risk score is capped at 100.
+
+Verdict thresholds:
+- Low: 0-29
+- Medium: 30-59
+- High: 60-79
+- Critical: 80-100
+
+The current results are based on a small synthetic test dataset.
+Therefore, the observed 0% false-positive and 0% false-negative rates
+should not be treated as a production accuracy measurement.
+
+Further testing with a larger set of sanitized or mentor-approved
+phishing and legitimate emails is recommended.
+
+
+7. DATA SAFETY CONFIRMATION
+
+Only sanitized synthetic test email samples were used during development
+and testing. No real employee or customer emails were processed.
+Email attachments were analyzed only through metadata and SHA-256 hashes
+and were not executed.
